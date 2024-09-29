@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function Screen4({ navigation, route }) {
@@ -23,77 +23,78 @@ export default function Screen4({ navigation, route }) {
     const total = (price * quantity).toFixed(2);
 
     return (
+        <ScrollView style={styles.container}>
+            <View >
+                {/* Product Images */}
+                <View style={styles.gridContainer}>
+                    <Image source={gridItems[0].image} style={styles.largeImage} />
+                    <View style={styles.smallGridContainer}>
+                        {gridItems.slice(1).map(item => (
+                            <TouchableOpacity key={item.id} style={styles.gridItem}>
+                                <Image source={item.image} style={styles.gridImage} />
+                            </TouchableOpacity>
+                        ))}
+                    </View>
+                </View>
 
-        <View style={styles.container}>
-            {/* Product Images */}
-            <View style={styles.gridContainer}>
-                <Image source={gridItems[0].image} style={styles.largeImage} />
-                <View style={styles.smallGridContainer}>
-                    {gridItems.slice(1).map(item => (
-                        <TouchableOpacity key={item.id} style={styles.gridItem}>
-                            <Image source={item.image} style={styles.gridImage} />
+                {/* Product Info */}
+                <Text style={styles.price}>${price.toFixed(2)}</Text>
+                <Text style={styles.offer}>Buy 1 get 1</Text>
+                <Text style={styles.productName}>Product Name</Text>
+                <Text style={styles.productSubtitle}>Occaecat est deserunt tempor offici</Text>
+
+                {/* Rating */}
+                <View style={styles.ratingContainer}>
+                    <FontAwesome name="star" size={20} color="#ffcc00" />
+                    <Text style={styles.rating}>4.5</Text>
+                </View>
+
+                {/* Size Selection */}
+                <Text style={styles.sectionTitle}>Size</Text>
+                <View style={styles.sizeContainer}>
+                    {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
+                        <TouchableOpacity
+                            key={size}
+                            style={[
+                                styles.sizeButton,
+                                selectedSize === size && styles.selectedSizeButton,
+                            ]}
+                            onPress={() => handleSizeSelection(size)}
+                        >
+                            <Text style={styles.sizeText}>{size}</Text>
                         </TouchableOpacity>
                     ))}
                 </View>
-            </View>
 
-            {/* Product Info */}
-            <Text style={styles.price}>${price.toFixed(2)}</Text>
-            <Text style={styles.offer}>Buy 1 get 1</Text>
-            <Text style={styles.productName}>Product Name</Text>
-            <Text style={styles.productSubtitle}>Occaecat est deserunt tempor offici</Text>
-
-            {/* Rating */}
-            <View style={styles.ratingContainer}>
-                <FontAwesome name="star" size={20} color="#ffcc00" />
-                <Text style={styles.rating}>4.5</Text>
-            </View>
-
-            {/* Size Selection */}
-            <Text style={styles.sectionTitle}>Size</Text>
-            <View style={styles.sizeContainer}>
-                {['XS', 'S', 'M', 'L', 'XL'].map((size) => (
-                    <TouchableOpacity
-                        key={size}
-                        style={[
-                            styles.sizeButton,
-                            selectedSize === size && styles.selectedSizeButton,
-                        ]}
-                        onPress={() => handleSizeSelection(size)}
-                    >
-                        <Text style={styles.sizeText}>{size}</Text>
+                {/* Quantity Selection */}
+                <Text style={styles.sectionTitle}>Quantity</Text>
+                <View style={styles.quantityContainer}>
+                    <TouchableOpacity onPress={decreaseQuantity}>
+                        <FontAwesome name="minus-square" size={30} color="#333" />
                     </TouchableOpacity>
-                ))}
-            </View>
+                    <Text style={styles.quantityText}>{quantity}</Text>
+                    <TouchableOpacity onPress={increaseQuantity}>
+                        <FontAwesome name="plus-circle" size={30} color="#333" />
+                    </TouchableOpacity>
+                    <Text style={styles.totalText}>Total: ${total}</Text>
+                </View>
 
-            {/* Quantity Selection */}
-            <Text style={styles.sectionTitle}>Quantity</Text>
-            <View style={styles.quantityContainer}>
-                <TouchableOpacity onPress={decreaseQuantity}>
-                    <FontAwesome name="minus-square" size={30} color="#333" />
+                {/* Size Guide and Reviews */}
+                <TouchableOpacity style={styles.link}>
+                    <Text style={styles.linkText}>Size guide</Text>
+                    <FontAwesome name="chevron-right" size={16} color="#aaa" />
                 </TouchableOpacity>
-                <Text style={styles.quantityText}>{quantity}</Text>
-                <TouchableOpacity onPress={increaseQuantity}>
-                    <FontAwesome name="plus-circle" size={30} color="#333" />
+                <TouchableOpacity style={styles.link}>
+                    <Text style={styles.linkText}>Reviews (99)</Text>
+                    <FontAwesome name="chevron-right" size={16} color="#aaa" />
                 </TouchableOpacity>
-                <Text style={styles.totalText}>Total: ${total}</Text>
+
+                {/* Add to Cart Button */}
+                <TouchableOpacity style={styles.addToCartButton}>
+                    <Text style={styles.addToCartButtonText}>Add to Cart</Text>
+                </TouchableOpacity>
             </View>
-
-            {/* Size Guide and Reviews */}
-            <TouchableOpacity style={styles.link}>
-                <Text style={styles.linkText}>Size guide</Text>
-                <FontAwesome name="chevron-right" size={16} color="#aaa" />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.link}>
-                <Text style={styles.linkText}>Reviews (99)</Text>
-                <FontAwesome name="chevron-right" size={16} color="#aaa" />
-            </TouchableOpacity>
-
-            {/* Add to Cart Button */}
-            <TouchableOpacity style={styles.addToCartButton}>
-                <Text style={styles.addToCartButtonText}>Add to Cart</Text>
-            </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 }
 
