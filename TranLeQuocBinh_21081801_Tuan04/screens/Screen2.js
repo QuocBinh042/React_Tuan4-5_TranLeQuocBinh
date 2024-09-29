@@ -4,6 +4,9 @@ import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 
+// Mảng toàn cục để lưu trữ thông tin người dùng
+const usersArray = [];
+
 export default function Screen2() {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -13,7 +16,13 @@ export default function Screen2() {
     const navigation = useNavigation();
 
     const handleSignUp = () => {
-        navigation.navigate("Screen3", { username, email });
+        // Thêm thông tin người dùng vào mảng
+        usersArray.push({
+            username,
+            email,
+            password
+        });
+        navigation.navigate("Screen3", { email, password });
     };
 
     return (

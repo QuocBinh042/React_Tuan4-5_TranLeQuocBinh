@@ -10,21 +10,17 @@ export default function Screen3({ navigation, route }) {
     useEffect(() => {
         if (route.params) {
             setEmail(route.params.email);
-        } else {
-            console.warn("No params received!");
         }
-    }, []);
+    }, [route.params]);
 
     const handleLogin = () => {
-        console.log('Params:', route.params);
-        console.log('Entered email:', email);
-        navigation.navigate("Screen4");
-        // if (route.params && route.params.email === email) {
-        //     navigation.navigate("Screen4");
-        // } else {
-        //     alert("Invalid login credentials");
-        // }
+        if (route.params && route.params.email === email && route.params.password === password) {
+            navigation.navigate("Screen4");
+        } else {
+            alert("Invalid login credentials");
+        }
     };
+
 
     return (
         <View style={styles.container}>

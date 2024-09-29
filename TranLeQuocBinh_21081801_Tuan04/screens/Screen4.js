@@ -9,22 +9,27 @@ export default function Screen4({ navigation, route }) {
 
     const gridItems = [
         { id: 1, image: require('../assets/data/Container_7(3).png') },
-        { id: 2, image: require('../assets/data/Image7_2.png') },
-        { id: 3, image: require('../assets/data/Image7_1.png') },
-        { id: 4, image: require('../assets/data/Image7_4.png') },
-        { id: 5, image: require('../assets/data/Image7.png') },
+        { id: 2, image: require('../assets/data/Image7_2.png'), rating: 4.5 },
+        { id: 3, image: require('../assets/data/Image7_1.png'), rating: 4.0 },
+        { id: 4, image: require('../assets/data/Image7_4.png'), rating: 4.5 },
+        { id: 5, image: require('../assets/data/Image7.png'), rating: 3.7 },
     ];
 
     const handleSizeSelection = (size) => setSelectedSize(size);
-
     const increaseQuantity = () => setQuantity(prev => prev + 1);
     const decreaseQuantity = () => setQuantity(prev => Math.max(1, prev - 1));
+
+    const handleAddToCart = () => {
+        navigation.navigate("Screen3");
+        alert("Succes!");
+    };
 
     const total = (price * quantity).toFixed(2);
 
     return (
         <ScrollView style={styles.container}>
             <View >
+
                 {/* Product Images */}
                 <View style={styles.gridContainer}>
                     <Image source={gridItems[0].image} style={styles.largeImage} />
@@ -90,8 +95,8 @@ export default function Screen4({ navigation, route }) {
                 </TouchableOpacity>
 
                 {/* Add to Cart Button */}
-                <TouchableOpacity style={styles.addToCartButton}>
-                    <Text style={styles.addToCartButtonText}>Add to Cart</Text>
+                <TouchableOpacity style={styles.addToCartButton} onPress={handleAddToCart}>
+                    <Text style={styles.addToCartText}>Add to Cart</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>
