@@ -1,67 +1,88 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { Image } from 'react-native'
-import { ScrollView } from 'react-native-web'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
+import { Image } from 'react-native';
+import { ScrollView } from 'react-native';
 
 export default function App({ navigation }) {
     return (
-        <ScrollView>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
-                <View >
-                    <Image source={require('../assets/data/Container_17.png')} />
-                </View>
-                <View style={{
-                    marginTop: 15,
-                    width: '85%',
-                    justifyContent: 'flex-start',
-                    alignItems: 'flex-start',
-                }} >
-                    <Text style={{
-                        fontSize: 25,
-                        fontWeight: 'bold'
-                    }} >Boost Productivity</Text>
-                    <Text style={{
-                        marginTop: 10,
-                        color: 'gray'
-                    }}>Simplify tasks, boost Productivity</Text>
+                {/* Hình ảnh minh họa */}
+                <View style={styles.imageContainer}>
+                    <Image source={require('../assets/data/Container_17.png')} style={styles.image} />
                 </View>
 
-                <View>
+                {/* Tiêu đề và mô tả */}
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>Boost Productivity</Text>
+                    <Text style={styles.subtitle}>Simplify tasks, boost productivity</Text>
+                </View>
+
+                {/* Nút Sign Up và Login */}
+                <View style={styles.buttonContainer}>
                     <TouchableOpacity
-                        style={{
-                            marginTop: 15,
-                            backgroundColor: 'blue',
-                            borderRadius: 10,
-                            width: '100%',
-                            height: 50,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            paddingHorizontal: 140
-                        }}
+                        style={styles.signUpButton}
                         onPress={() => { navigation.navigate("Screen2") }}>
-                        <Text style={{ fontSize: 20, color: 'white' }}>Sign Up</Text>
+                        <Text style={styles.signUpText}>Sign Up</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                        style={{
-                            height: 50,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            paddingHorizontal: 140
-                        }}
+                        style={styles.loginButton}
                         onPress={() => { navigation.navigate("Screen3") }}>
-                        <Text style={{ fontSize: 20, color: 'black' }}>Login</Text>
+                        <Text style={styles.loginText}>Login</Text>
                     </TouchableOpacity>
                 </View>
+
+                
             </View>
         </ScrollView>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
+    scrollContainer: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+    },
+    textContainer: {
+        marginBottom: 10,
+    },
+    title: {
+        fontSize: 28,
+        fontWeight: 'bold'
+    },
+    subtitle: {
+        fontSize: 16,
+        color: 'gray',
+    },
+    buttonContainer: {
+        width: '100%',
+    },
+    signUpButton: {
+        backgroundColor: '#007BFF',
+        borderRadius: 5,
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 5,
+    },
+    signUpText: {
+        fontSize: 18,
+        color: 'white',
+    },
+    loginButton: {
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    loginText: {
+        fontSize: 18,
     }
-})
+});

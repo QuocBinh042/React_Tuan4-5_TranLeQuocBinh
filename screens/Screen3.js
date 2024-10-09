@@ -1,40 +1,36 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function Screen3({ navigation, route }) {
+export default function Screen3({ route, navigation }) {
+    const registeredUsers = [
+        { email: 'user1@gmail.com', password: '0000' },
+        { email: 'user2@gmail.com', password: '1111' }
+    ];
+    const { usersArray = registeredUsers} = route.params || {};
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-    useEffect(() => {
-        if (route.params) {
-            setEmail(route.params.email);
-        }
-    }, [route.params]);
-
+    
     const handleLogin = () => {
-        if (route.params && route.params.email === email && route.params.password === password) {
+        const userExists = usersArray.some(user => user.email === email && user.password === password);
+        if (userExists) {
             navigation.navigate("Screen4");
         } else {
-            alert("Invalid login credentials");
+            Alert.alert("Error", "Invalid login credentials");
         }
     };
-
-
     return (
         <View style={styles.container}>
-            {/* Image for background or logo */}
             <Image
-                source={require('../assets/data/Image 20.png')}
+                source={require('../assets/data/Image_20.png')}
                 style={styles.backgroundImage}
             />
 
             <View style={styles.loginContainer}>
                 <Text style={styles.title}>Welcome!</Text>
-
-                {/* Email Input */}
-                <View style={styles.inputContainer}>
+                <Text style={{fontSize: 18, fontWeight: 'bold',}}>Email</Text>
+                <View style={styles.inputContainer}>                
                     <Icon name="envelope" size={20} color="gray" style={styles.icon} />
                     <TextInput
                         style={styles.input}
@@ -45,8 +41,7 @@ export default function Screen3({ navigation, route }) {
                         autoCapitalize="none"
                     />
                 </View>
-
-                {/* Password Input */}
+                <Text style={{fontSize: 18, fontWeight: 'bold',}}>Password</Text>
                 <View style={styles.inputContainer}>
                     <Image
                         source={require('../assets/data/lock.png')}
@@ -59,7 +54,6 @@ export default function Screen3({ navigation, route }) {
                         secureTextEntry={!isPasswordVisible}
                         onChangeText={setPassword}
                     />
-                    {/* Password Visibility Toggle */}
                     <TouchableOpacity
                         onPress={() => setIsPasswordVisible(!isPasswordVisible)}
                         style={styles.eyeIconContainer}
@@ -71,7 +65,6 @@ export default function Screen3({ navigation, route }) {
                     </TouchableOpacity>
                 </View>
 
-                {/* Login Button */}
                 <TouchableOpacity
                     style={styles.button}
                     onPress={handleLogin}
@@ -104,7 +97,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 28,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginBottom: 50,
         textAlign: 'left',
     },
     inputContainer: {
