@@ -3,7 +3,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { ScrollView } from 'react-native';
 
-export default function App({ navigation }) {
+export default function Screen1({ navigation }) {
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
