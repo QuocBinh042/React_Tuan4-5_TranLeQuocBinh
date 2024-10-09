@@ -7,18 +7,17 @@ export default function Screen4({ navigation, route }) {
     const [quantity, setQuantity] = useState(1);
     const price = 2.99;
 
-    const gridItems = [
-        { id: 1, image: require('../assets/data/Container_7(3).png') },
-        { id: 2, image: require('../assets/data/Image7_2.png'), rating: 4.5 },
-        { id: 3, image: require('../assets/data/Image7_1.png'), rating: 4.0 },
-        { id: 4, image: require('../assets/data/Image7_4.png'), rating: 4.5 },
-        { id: 5, image: require('../assets/data/Image7.png'), rating: 3.7 },
-    ];
+    const [dataProduct] = useState([
+        { id: 1, productName: "Product1", price: 2.99, imageProduct: require('../assets/data/Image_1.png'), rating: 4.5 },
+        { id: 2, productName: "Product2", price: 3.99, imageProduct: require('../assets/data/Image_2.png'), rating: 4.7 },
+        { id: 3, productName: "Product3", price: 1.99, imageProduct: require('../assets/data/Image_3.png'), rating: 4.3 },
+        { id: 4, productName: "Product4", price: 2.49, imageProduct: require('../assets/data/Image_4.png'), rating: 4.1 },
+    ]);
 
     const handleSizeSelection = (size) => setSelectedSize(size);
     const increaseQuantity = () => setQuantity(prev => prev + 1);
     const decreaseQuantity = () => setQuantity(prev => Math.max(1, prev - 1));
-
+    const [productSelected, setProductSelected] = useState(dataProduct[0]);
     const handleAddToCart = () => {
         navigation.navigate("Screen3");
         alert("Succes!");
@@ -29,29 +28,28 @@ export default function Screen4({ navigation, route }) {
     return (
         <ScrollView style={styles.container}>
             <View >
-
-                {/* Product Images */}
                 <View style={styles.gridContainer}>
-                    <Image source={gridItems[0].image} style={styles.largeImage} />
+                    <Image source={productSelected.imageProduct} style={styles.largeImage}/>
                     <View style={styles.smallGridContainer}>
-                        {gridItems.slice(1).map(item => (
-                            <TouchableOpacity key={item.id} style={styles.gridItem}>
-                                <Image source={item.image} style={styles.gridImage} />
-                            </TouchableOpacity>
-                        ))}
+
+                    {dataProduct.map((product) => (
+                        <TouchableOpacity key={product.id} onPress={() => setProductSelected(product)} style={styles.gridItem}>
+                            <Image source={product.imageProduct} style={styles.gridImage} />
+                        </TouchableOpacity>
+                    ))}
                     </View>
                 </View>
 
                 {/* Product Info */}
-                <Text style={styles.price}>${price.toFixed(2)}</Text>
+                <Text style={styles.price}>${productSelected.price.toFixed(2)}</Text>
                 <Text style={styles.offer}>Buy 1 get 1</Text>
-                <Text style={styles.productName}>Product Name</Text>
+                <Text style={styles.productName}>{productSelected.productName}</Text>
                 <Text style={styles.productSubtitle}>Occaecat est deserunt tempor offici</Text>
 
                 {/* Rating */}
                 <View style={styles.ratingContainer}>
                     <FontAwesome name="star" size={20} color="#ffcc00" />
-                    <Text style={styles.rating}>4.5</Text>
+                    <Text style={styles.rating}>{productSelected.rating}</Text>
                 </View>
 
                 {/* Size Selection */}

@@ -22,6 +22,10 @@ export default function Screen3({ route, navigation }) {
     };
     return (
         <View style={styles.container}>
+            {/* Back Arrow Button */}
+            <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+                <Icon name="arrow-left" size={24} color="black" />
+            </TouchableOpacity>
             <Image
                 source={require('../assets/data/Image_20.png')}
                 style={styles.backgroundImage}
@@ -82,6 +86,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
+    },
+    backButton: {
+        position: 'absolute',
+        top: 20,
+        left: 20,
     },
     backgroundImage: {
         width: '100%',

@@ -30,8 +30,7 @@ export default function Screen2() {
             <Text style={styles.subtitle}>Create your account</Text>
 
             {/* Username Input with Icon */}
-            <View style={styles.inputContainer}>
-                
+            <View style={styles.inputContainer}>                
                 <Icon name="user" size={20} color="gray" style={styles.icon} />
                 <TextInput
                     style={styles.input}
