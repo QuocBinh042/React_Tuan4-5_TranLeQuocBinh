@@ -1,7 +1,9 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image, CheckBox } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
 import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import Checkbox from 'expo-checkbox';
+
 let usersArray = [];
 export default function Screen2() {
     const [username, setUsername] = useState('');
@@ -75,7 +77,7 @@ export default function Screen2() {
 
             {/* Checkbox for Terms & Conditions */}
             <View style={styles.checkboxContainer}>
-                <CheckBox value={isChecked} onValueChange={setIsChecked} style={styles.checkbox} />
+                <Checkbox value={isChecked} onValueChange={setIsChecked} style={styles.checkbox} />
                 <Text style={styles.checkboxLabel}>
                     I agree with <Text style={styles.terms}>Terms & Conditions</Text>
                 </Text>
