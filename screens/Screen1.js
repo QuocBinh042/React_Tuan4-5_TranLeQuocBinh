@@ -19,7 +19,7 @@ export default function Screen1({ navigation }) {
                 </View>
 
                 {/* Nút Sign Up và Login */}
-                <View style={styles.buttonContainer}>
+                <View>
                     <TouchableOpacity
                         style={styles.signUpButton}
                         onPress={() => { navigation.navigate("Screen2") }}>
@@ -61,9 +61,6 @@ const styles = StyleSheet.create({
     subtitle: {
         fontSize: 16,
         color: 'gray',
-    },
-    buttonContainer: {
-        width: '100%',
     },
     signUpButton: {
         backgroundColor: '#007BFF',
